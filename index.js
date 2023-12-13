@@ -1,20 +1,21 @@
 const app = require("express")();
-const server = require("http").createServer(app);
 const cors = require("cors");
-
-const io = require("socket.io")(server, {
-	cors: {
-		origin: "https://fe-socket-letatchinh.vercel.app",
-		methods: [ "GET", "POST" ]
-	}
-});
-
+const server = require("http");
 app.use(cors());
+
+
 
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
 	res.send('Running');
+});
+const server_ = server.createServer(app);
+const io = require("socket.io")(server_, {
+	cors: {
+		origin: "https://fe-socket-letatchinh.vercel.app",
+		methods: [ "GET", "POST" ]
+	}
 });
 
 io.on("connection", (socket) => {
@@ -33,4 +34,4 @@ io.on("connection", (socket) => {
 	});
 });
 
-server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+server_.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
