@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 const server_ = server.createServer(app);
 const io = require("socket.io")(server_, {
 	cors: {
-		origin: "https://fe-socket-letatchinh.vercel.app",
+		origin: "*",
 		methods: [ "GET", "POST" ]
 	}
 });
